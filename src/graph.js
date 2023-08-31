@@ -1,88 +1,77 @@
-import React, { useRef, useEffect } from 'react';
-import * as d3 from 'd3';
+import { brown } from '@mui/material/colors';
+import { createChart, ColorType } from 'lightweight-charts';
+import React, { useEffect, useRef } from 'react';
 
-function D3Chart() {
-    const svgRef = useRef(null);
 
-    const transactionDataset = [
-        { date: "2020-12-12", amount: 7.3001 },
-        { date: "2020-12-13", amount: -0.3082 },
-        { date: "2020-12-19", amount: -1.9919 },
-        { date: "2020-12-25", amount: 5.0000 }
-    ];
+export const ChartComponent = props => {
+	const {
+		data,
+		colors: {
+			backgroundColor = 'lightgrey',
+			lineColor = '#2962FF',
+			textColor = 'black',
+			areaTopColor = '#2962FF',
+			areaBottomColor = 'rgba(41, 98, 255, 0.28)',
+		} = {},
+	} = props;
 
-    // Calculate cumulative amounts in a separate step
-    let cumulativeAmount = 0;
-    const dataset = transactionDataset.map(transaction => {
-      cumulativeAmount = Math.max(cumulativeAmount + transaction.amount, 0);
-      return { ...transaction, cumulativeAmount };
-    });
-  
-    useEffect(() => {
-    //margins 
-    const margin = { top: 20, right: 20, bottom: 50, left: 40};
-    const width = 400 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
-    
-    const parseDate = d3.timeParse("%Y-%m-%d");
-    dataset.forEach(d => {
-        d.date = parseDate(d.date);
-    });
-    //console.log(dataset);
+	const chartContainerRef = useRef();
 
-    const xScale = d3.scaleTime()
-        .domain(d3.extent(dataset, d=> d.date))
-        .range([0, width]);
+	useEffect(
+		() => {
+			const handleResize = () => {
+				chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+			};
 
-    var yScale = d3.scaleLinear()
-        .domain([0, d3.max(dataset, d => d.cumulativeAmount)])
-        .range([height, 0]);
+			const chart = createChart(chartContainerRef.current, {
+				layout: {
+					background: { type: ColorType.Solid, color: backgroundColor },
+					textColor,
+				},
+				width: chartContainerRef.current.clientWidth,
+				height: 300,
+			});
+			chart.timeScale().fitContent();
 
-    const svg = d3.select(svgRef.current)
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			const newSeries = chart.addAreaSeries({ lineColor, topColor: areaTopColor, bottomColor: areaBottomColor });
+			newSeries.setData(data);
 
-        // Create line path for the cumulative amounts
-    const line = d3.line()
-        .x(d => xScale(d.date))
-        .y(d => yScale(d.cumulativeAmount));
-    
-    svg.append("path")
-      .datum(dataset)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", 2)
-      .attr("d", line);
+			window.addEventListener('resize', handleResize);
 
-    // Create circles for data points
-    svg.selectAll("circle")
-      .data(dataset)
-      .enter()
-      .append("circle")
-      .attr("cx", d => xScale(d.date))
-      .attr("cy", d => yScale(d.cumulativeAmount))
-      .attr("r", 4)
-      .attr("fill", "steelblue");
+			return () => {
+				window.removeEventListener('resize', handleResize);
 
-    //creates axis 
-    const xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%Y-%m-%d"));
-    svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-      .selectAll("text") //x label vertical transformation
-      .attr("transform", "translate(-10,0)rotate(-45)")
-      .style("text-anchor", "end");
+				chart.remove();
+			};
+		},
+		[data, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]
+	);
 
-    const yAxis = d3.axisLeft(yScale);
-    svg.append("g")
-        .call(yAxis);
-    // Append line path to the SVG
+	return (
+		<div
+			ref={chartContainerRef}
+		/>
+	);
+};
 
-  }, []);
-    return (
-        <svg ref={svgRef}></svg>
-    );
-}; 
-export default D3Chart;
+
+//We will be importing transaction data. 
+//if value is not set at each tick 
+const initialData = [
+  { time: '2018-12-03', value: 27.02 },
+  { time: '2018-12-04', value: 27.02 }, 
+  { time: '2018-12-05', value: 27.02 }, // see here, inbetween these points bar is straight - which would indicate no change in value
+  { color: brown, time: '2018-12-06', value: 29.69 }, // whitespace
+  { time: '2018-12-07' }, // whitespace
+  { time: '2018-12-08', value: 23.92 },
+  { time: '2018-12-13', value: 30.74 },
+];
+
+
+
+
+export default function Chart(props) {
+	return (
+		<ChartComponent {...props} data={initialData}></ChartComponent>
+	);
+}

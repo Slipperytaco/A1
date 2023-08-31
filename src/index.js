@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+/*
 import { CssBaseline, ThemeProvider, createTheme, useTheme, IconButton } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
@@ -19,7 +20,7 @@ export const lightTheme = createTheme ({
     type: 'light'
   },
 });
-
+*/
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -4,14 +4,16 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import ResponsiveGrid from './griddy';
 import Header from "./Header";
-import D3Chart from './graph';
+import Chart from './graph';
+import Chart1 from './barChart';
 
 function App() {
   return (
   <div>
     <Header/>
     <ResponsiveGrid/>
-    <D3Chart/>    
+    <Chart/> 
+    <Chart1/>   
   </div>
 
   );
