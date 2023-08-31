@@ -62,7 +62,8 @@ export const ChartComponent = props => {
 					background: { type: 'solid', color: backgroundColor },
 					textColor,
 				},
-				width: chartContainerRef.current.clientWidth,
+                //autoSize: true,
+				//width: chartContainerRef.current.clientWidth,
 				height: 300,
 			});
 			chart.timeScale().fitContent();
