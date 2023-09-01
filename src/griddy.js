@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Nodes from './/node';
 import { Typography } from '@mui/material';
 import TableauTable from './DataTable';
+import D3Chart from './graph';
 
 const Item = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -22,7 +23,7 @@ const Item = styled('div')(({ theme }) => ({
         <div style={{ margin: '20px', overflow: 'visible' }}>
             <Grid container spacing={2}>
 
-                <Grid item xs={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} >
                     <Paper elevation={3} style={{ padding: '30px', borderRadius: '10px', height: '50vh' }}>
                     <Typography variant="h6">Content For Wallet Information</Typography>
                     <Typography>
@@ -31,7 +32,7 @@ const Item = styled('div')(({ theme }) => ({
                     </Paper>
                 </Grid>
 
-                <Grid item xs={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} >
                     <Paper elevation={3} style={{ padding: '30px', borderRadius: '10px', height: '50vh'}}>
                     <Typography variant="h6">Transactions History</Typography>
                     <Typography>
@@ -41,13 +42,18 @@ const Item = styled('div')(({ theme }) => ({
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12}>
-                    <Paper elevation={3} style={{ padding: '30px', borderRadius: '10px', height: '50vh' }}>
-                    <Typography variant="h6">Content for Graphs</Typography>
-                    <Typography>
-                        Swiggly Lines.
-                        <TableauTable/>
-                    </Typography>
+                <Grid item xs={12} sm={12} md={12} >
+                    <Paper elevation={4} style={{ padding: '30px', borderRadius: '10px', height: '50vh' , overflow: true}}>
+                        <Typography>
+                            <D3Chart/>    
+                        </Typography>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} >
+                    <Paper elevation={3}>
+                        <Typography>
+                            <TableauTable/>
+                        </Typography>
                     </Paper>
                 </Grid>
 

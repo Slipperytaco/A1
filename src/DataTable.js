@@ -2,7 +2,6 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import clsx from 'clsx';
-
 const columns = [
   { field: 'id', headerName: 'Block', width: 100 , cellClassName: 'super-app-theme--cell-block'},
   { field: 'time', headerName: 'Time',width: 200 },
@@ -15,8 +14,8 @@ const columns = [
         return '';
       }
       return clsx('super-app-amount',{
-        negative: params.value[0] === '-',
-        positive: params.value[0] === '+',
+        negative: params.value[0] == '-',
+        positive: params.value[0] == '+',
       }
       )
     } 
@@ -43,8 +42,9 @@ const columns = [
 ];
 
 const rows = [
-  { id: 761702, time: '2022-05-01 01:58:46', amount: '+10000 BTC' ,balance: 10000.00, price:  2112.5, profit: '$1'},
-  { id: 761699, time: '2022-11-05 01:25:04', amount: '+0.00 BTC', balance: 0.00294, price: 21126.82, profit: '$1' },
+  { id: 761702, time: '2022-05-01 01:58:46', amount: '+10000 BTC',balance: 10000.00, price:  2112.5, profit: '$1'},
+  { id: 761699, time: '2022-11-05 01:25:04', amount: '+0.001 BTC', balance: 0.00294, price: 21126.82, profit: '$1' },
+  { id: 761378, time: '2022-11-02 18:24:29', amount: '-0.00305 BTC', balance: 0.00194, price: 20433.07, profit: '$0'},
 ];
 
 
@@ -74,10 +74,10 @@ export default function TableauTable(){
             columns={columns}
             initialState={{
                 pagination: {
-                    paginationModel: { page: 0, pageSize: 6 },
+                    paginationModel: { page: 0, pageSize: 5 },
                 },
             }}
-        pageSizeOptions={[6, 10]}
+        pageSizeOptions={[5, 10]}
         checkboxSelection
         />
     </Box>
