@@ -1,34 +1,18 @@
 import React from 'react';
-import './App.css';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import ResponsiveGrid from './griddy';
-import Header from "./Header";
-import Chart from './graph';
-import Chart1 from './barChart';
+
+import './Styling/App.css';
+import ResponsiveGrid from './Components/Grid';
+import Header from './Components/Header';
 
 function App() {
   return (
   <div>
     <Header/>
     <ResponsiveGrid/>
-    <Chart/> 
-    <Chart1/>   
   </div>
-
   );
 }
 
-
 export default App;
-
-
-/*
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
-*/
