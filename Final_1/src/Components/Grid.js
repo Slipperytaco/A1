@@ -7,41 +7,47 @@ import { Typography } from '@mui/material';
 
 import TableauTable from './DataTable';
 import WalletChart from './Wallet_Chart';
+import Flow from './Node_Graph';
 
   
 export default function ResponsiveGrid() {
     return (
-        <div style={{ margin: '20px', overflow: 'visible' }}>
+        <div style={{ margin: '20px' }}>
             <Grid container spacing={2}>
 
                 <Grid item xs={12} sm={6} md={6} >
-                    <Paper elevation={3} 
+                    <Paper elevation={10} 
                         style={{ padding: '30px', 
-                            borderRadius: '10px', 
-                            height: '50vh' }}>
+                            height: '50vh',
+                            overflow: 'scroll' }}>
                     <Typography variant="h6"><b>Wallet Address:</b></Typography>
                     <Typography>
-                        bc1q6v32wx37has40meqc9ea4tasc27umsksukylh2 <br></br>
-                        <b>Balance:</b> 3,827.73917861 BTC
+                        bc1q6v32wx37has40meqc9ea4tasc27umsksukylh2 <br></br> <br></br>
+                        <b>Balance:</b> 3,827.73917861 BTC <br></br>
+                        <b>Value in USD:</b> 98,772,116.75 USD <br></br>
                         <WalletChart/>
                     </Typography>
                     </Paper>
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={6} >
-                    <Paper elevation={3} 
+                    <Paper elevation={10} 
                         style={{ padding: '30px', 
-                            borderRadius: '10px', 
+                            borderRadius: '30px', 
                             height: '50vh'}}>
-                    <Typography variant="h6">Transactions History</Typography>
+                    <Typography variant="h6"><b>Visualization</b></Typography>
                     <Typography>
-                        This area here displays the transactions between your wallet and other wallets.
+                        This area here visualize your transactions.
+                        <Flow/>
                     </Typography>
                     </Paper>
                 </Grid>
 
                 <Grid item xs={12} sm={12} md={12} >
-                    <Paper elevation={3}>
+                    <Paper elevation={10}
+                        style={{ padding: '30px', 
+                            borderRadius: '30px', 
+                            height: '35vh'}}>
                         <Typography>
                             <TableauTable/>
                         </Typography>

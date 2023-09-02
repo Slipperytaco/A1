@@ -1,47 +1,38 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
-import Divider from "@mui/material/Divider";
-import MenuList from "@mui/material/MenuList";
-import MenuItem from "@mui/material/MenuItem";
-import Grid from '@mui/material/Grid';
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Check from "@mui/icons-material/Check";
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import IconButton from "@mui/material/IconButton";
 import GitHubIcon from '@mui/icons-material/GitHub';
-import styled from "styled-components";
-import { Grid3x3 } from "@mui/icons-material";
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-const Link = styled.a`
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    /* Changing the color */
-    &:hover {
-        color: red;
-    }
-`;
-const GridStyled = styled(Grid)(({ theme }) => ({
-    width:'100%', 
-    backgroundColor:'#1976d2', 
-    color:'white',
-    marginBottom: 'auto',
-    boxShadow: '0 -8px 8px 0 rgba(0, 0, 0, 0.2)'
-  }));
+const footerStyle = {
+  position: 'fixed',  // Fixed position
+  bottom: 0,          // At the bottom
+  width: '100%',      // Full width
+};
 
 export default function Footer() {
-return (
-    <footer>
-        <GridStyled item xs={12} sm={12} md={12}>
-            <MenuList style={{width:'100%'}}>
-                <MenuItem>
-                    <ListItemIcon><GitHubIcon></GitHubIcon></ListItemIcon>
-                    <ListItemText style={{verticalAlign:'middle'}}>Our Contact</ListItemText>
-                    <ListItemText><Link href="#">Ari</Link></ListItemText>
-                    <ListItemText><Link href="103797198@student.swin.edu.au">Viet</Link></ListItemText>
-                    <ListItemText><Link hred="#">Vinh</Link></ListItemText>
-                </MenuItem>
-            </MenuList>
-        </GridStyled>
-    </footer>
-);
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" style={footerStyle}>
+        <Toolbar>
+          <IconButton href="https://github.com/Slipperytaco/A1"
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <GitHubIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <b>OUR REPOSITORY</b>
+          </Typography>
+          <Button color="inherit" href = "mailto:104193108@student.swin.edu.au">Contact Us</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
 }
