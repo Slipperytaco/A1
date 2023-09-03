@@ -1,0 +1,17 @@
+/* Style the container for the chart */
+.chart-container {
+  width: 0%;
+  border-radius: 10px;
+}
+
+/* Style the tooltip container */
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  z-index: 1; /* Ensure the tooltip appears above the chart */
+  display: none; /* Initially hide the tooltip */
+  white-space: nowrap; /* Prevent line breaks in tooltip content */
+}
