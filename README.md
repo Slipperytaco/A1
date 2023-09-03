@@ -1,5 +1,7 @@
-# ASSIGNMENT 1: STATIC WEBSITE #
+This is everything we've done, and I feel like it's the best we can do for Assignment 1.
 
-NOTE: UPLOAD EVERYTHING EXCEPT FOR THE NODE MODULES. THAT WILL BE INSTALLED LATER USING NPM COMMANDS
+If you have any reference, please remember to include it, my references will be messaged in Discord.
 
-WE'RE LOOKING STRONK, BOYS
+Known bugs: not found at the moment.
+
+Datasets are hard-coded, will need fixing for 2nd and 3rd Assignment
