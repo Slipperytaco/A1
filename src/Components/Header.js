@@ -63,7 +63,7 @@ export const WalletContext = React.createContext({
   walletDetails: [], fetchWallet: () => {}
 })
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
 
   // variable and set function for that variable
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -87,7 +87,12 @@ export default function PrimarySearchAppBar() {
   const handleOnInput = (event) => {
     setWalletAddress(event.target.value)
   };
-
+  // get the wallet details
+  const fetchWalletDetails= async() => {
+    const response = await fetch("http://localhost:8000/wallets")
+    const walletDetails = await response.json()
+    props.callbackFn(walletDetails)
+  };
   // update the current address in backend
   const handlePressEnter = (event) => {
     if(event.key === "Enter"){
@@ -99,7 +104,7 @@ export default function PrimarySearchAppBar() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newWalletAddress)
         }
-      )
+      ).then(fetchWalletDetails)
     }
   }
 

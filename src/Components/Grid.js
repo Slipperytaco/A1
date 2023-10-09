@@ -11,11 +11,12 @@ import Flow from './Node_Graph';
 
 
 export const WalletDetailsGridContext = React.createContext({
-    walletDetailsGrid: [], fetchWalletGrid: () => {}
+    props: []
 }
 )
-export default function ResponsiveGrid() {
-    const [walletDetailsGrid, setWalletDetailsGrid] = React.useState([]);
+export default function ResponsiveGrid(props) {
+    const [walletDetailsGrid, setWalletDetailsGrid] = React.useState({});
+    //alert(passedData)
     const fetchWalletGrid= async() => {
         const response = await fetch("http://localhost:8000/wallets/Grid")
         const wallet = await response.json()
@@ -23,12 +24,11 @@ export default function ResponsiveGrid() {
     }
     const handlePressEnter = (event) =>{
         if(event.key === "Enter"){
-            alert(walletDetailsGrid)
             fetchWalletGrid()
         }
     }
     return (
-        <WalletDetailsGridContext.Provider value={{walletDetailsGrid, fetchWalletGrid}}>
+        <WalletDetailsGridContext.Provider value={{props}}>
             <div style={{ margin: '20px' }}>
             <Grid container spacing={2}>
 
@@ -39,9 +39,9 @@ export default function ResponsiveGrid() {
                             overflow: 'scroll' }}>
                     <Typography variant="h6"><b>Wallet Address:</b></Typography>
                     <Typography>
-                        {walletDetailsGrid["WalletAddress"]} <br></br> <br></br>
-                        <b>Balance:</b> 3,827.73917861 BTC <br></br>
-                        <b>Value in USD:</b> 98,772,116.75 USD <br></br> <br></br>
+                        {props.address} <br></br> <br></br>
+                        <b>Balance:</b> {props.balance} <br></br>
+                        <b>Value in USD:</b> {props.value_in_usd} <br></br> <br></br>
                         <WalletChart/>
                     </Typography>
                     </Paper>
