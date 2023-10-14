@@ -1,37 +1,25 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import './Styling/App.css';
-import ResponsiveGrid from './Components/Grid';
-import Header from './Components/Header';
-import Footer from './Components/Footer.js';
+import Home from './Pages/Home';
+import Information from './Pages/Information';
 
-function App() {
+const Program = () => {
 
-    const [passedData,setPassedData] = React.useState([]);
-    const [gridData, setGridData] = React.useState([]);
-    const callbackFunction = (data) => {
-      setPassedData(data);
+  //Python Server URL
+  const py_server = "http://127.0.0.1:8000";
 
-      // SET GRID Data
-      const grid_data = JSON.parse(JSON.stringify(passedData["Grid"]));
-      setGridData(grid_data);
-
-
-
-    }
-  return (
-  <div>
-    <Header callbackFn = {callbackFunction}/>
-    <ResponsiveGrid 
-      address = {gridData.WalletAddress}
-      balance = {gridData.Balance}
-      value_in_usd = {gridData.Value_in_USD}
-    />
-    <Footer/>
-  </div>
+  return(
+    <div>
+        <BrowserRouter>
+            <Routes>
+                <Route index element={<Home />} />
+                <Route path="information" element={<Information url={py_server} />} />
+            </Routes>
+        </BrowserRouter>
+    </div>
   );
 }
 
-export default App;
+export default Program;
