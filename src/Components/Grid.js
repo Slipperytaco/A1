@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -9,10 +9,27 @@ import TableauTable from './DataTable';
 import WalletChart from './Wallet_Chart';
 import Flow from './Node_Graph';
 
-  
-export default function ResponsiveGrid() {
+
+export const WalletDetailsGridContext = React.createContext({
+    props: []
+}
+)
+export default function ResponsiveGrid(props) {
+    const [walletDetailsGrid, setWalletDetailsGrid] = React.useState({});
+    //alert(passedData)
+    const fetchWalletGrid= async() => {
+        const response = await fetch("http://localhost:8000/wallets/Grid")
+        const wallet = await response.json()
+        setWalletDetailsGrid(wallet["Grid"])
+    }
+    const handlePressEnter = (event) =>{
+        if(event.key === "Enter"){
+            fetchWalletGrid()
+        }
+    }
     return (
-        <div style={{ margin: '20px' }}>
+        <WalletDetailsGridContext.Provider value={{props}}>
+            <div style={{ margin: '20px' }}>
             <Grid container spacing={2}>
 
                 <Grid item xs={12} sm={6} md={6} >
@@ -22,9 +39,9 @@ export default function ResponsiveGrid() {
                             overflow: 'scroll' }}>
                     <Typography variant="h6"><b>Wallet Address:</b></Typography>
                     <Typography>
-                        bc1q6v32wx37has40meqc9ea4tasc27umsksukylh2 <br></br> <br></br>
-                        <b>Balance:</b> 3,827.73917861 BTC <br></br>
-                        <b>Value in USD:</b> 98,772,116.75 USD <br></br> <br></br>
+                        {props.address} <br></br> <br></br>
+                        <b>Balance:</b> {props.balance} <br></br>
+                        <b>Value in USD:</b> {props.value_in_usd} <br></br> <br></br>
                         <WalletChart/>
                     </Typography>
                     </Paper>
@@ -54,6 +71,7 @@ export default function ResponsiveGrid() {
                     </Paper>
                 </Grid>
             </Grid>
-        </div>
+            </div>
+        </WalletDetailsGridContext.Provider>
     );
 }
