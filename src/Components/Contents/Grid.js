@@ -8,7 +8,6 @@ import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 
 import TableauTable from './DataTable';
-//import WalletChart from './Wallet_Chart';
 import Flow from './Node_Graph';
 
 

@@ -57,6 +57,7 @@ export default function Flow() {
   };
   // Add the link object to the links array
   graphData.links.push(link);
+
   // Add the nodes object to the nodes array
   input[0]._nodes.forEach((node)=>{
     if(node.address != searchParams.get('q')){
@@ -80,7 +81,7 @@ export default function Flow() {
       }
   );
     setSearchParams(createSearchParams(searchJSON));
-    window.location.reload(false);
+    window.location.reload(false); //force page reloading 
   }
 
 
@@ -89,7 +90,6 @@ export default function Flow() {
     setDisplayHeight(window.innerHeight);
   });
 
-  //alert(JSON.stringify(graphData,null,3))
   return (
     <div>
       <ForceGraph2D 

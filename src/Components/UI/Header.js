@@ -9,7 +9,7 @@ import '../../Styling/header.css'
 
 const Header = ({currentPage}) => {
 
-    //Everything for Search Queries
+    /* Set search params  */
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const genSearchParam = () => {
@@ -17,6 +17,7 @@ const Header = ({currentPage}) => {
             return (createSearchParams({ q: searchParams.get('q') }).toString());
         }
     }
+    /* handle address submission */
     const submission = (event) => {
       const searchJson = new FormData(event.target);
       setSearchParams(createSearchParams(Object.fromEntries(searchJson.entries())).toString());
@@ -28,6 +29,7 @@ const Header = ({currentPage}) => {
           <CurrencyBitcoinSharpIcon />
           <b>&nbsp;TacoCorp&nbsp;&nbsp;&nbsp;&nbsp;</b>
           <form class = "hd-search-form" onSubmit = {submission}>
+            {/* search bar */}
             <TextField placeholder = 'Enter Address'
               fullWidth size = {"small"}
               defaultValue = {searchParams.get("q")}
@@ -38,7 +40,7 @@ const Header = ({currentPage}) => {
                     <SearchIcon/>
                   </InputAdornment>
               ) }}
-              name = 'q'
+              name = 'q' // search params name
             />
             <br></br>
           </form>

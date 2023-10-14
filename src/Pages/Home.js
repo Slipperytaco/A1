@@ -10,6 +10,7 @@ import '../Styling/Home.css';
 
 const Home = () => {
     const navi = useNavigate();
+    /* Change to Information page after search */
     const SubmitSearch = (event) => {
         const Searched = new FormData(event.target);
         navi(
@@ -27,6 +28,7 @@ const Home = () => {
                 <h1>TacoCorp</h1>
                 <h4>Insights into the ever changing market...</h4>
                 <form class = "home-search" onSubmit = {SubmitSearch}>
+                    {/* search bar */}
                     <TextField placeholder='Enter Address'
                         fullWidth size = {"small"}
                         defaultValue = {searchParams.get("q")}

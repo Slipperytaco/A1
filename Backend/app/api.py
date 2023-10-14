@@ -71,6 +71,8 @@ async def getBalance(q: str):
             RETURN SUM(tx.value);
             """, filter=address))
         # Return total received - total sent
+        if len(result) == 1:
+            return result[0][0]
         return result[0][0] - result[1][0]
 
     # Run the query and return the result
