@@ -70,9 +70,12 @@ async def getBalance(q: str):
             MATCH p=(from:Wallet {address: $filter})-[tx:Transfer]->(to:Wallet)
             RETURN SUM(tx.value);
             """, filter=address))
-        # Return total received - total sent
+        
+        # Return result if only transfer to one node
         if len(result) == 1:
             return result[0][0]
+        
+        # Return total received - total sent
         return result[0][0] - result[1][0]
 
     # Run the query and return the result
@@ -97,34 +100,3 @@ async def getNodeData(q: str):
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
     return {"message": "Welcome to your todo list."}
-
-wallet_address = ["0"]
-# Wallets Details
-wallets = {
-    "": {
-        "Grid": {
-            "WalletAddress": "1",
-            "Balance": "",
-            "Value-in-USD": ""
-        }
-    },
-    "bc1q6v32wx37has40meqc9ea4tasc27umsksukylh2": {
-        "Grid": {
-            "WalletAddress": "bc1q6v32wx37has40meqc9ea4tasc27umsksukylh2",
-            "Balance": "3,827.73917861 BTC",
-            "Value_in_USD": "98,772,116.75 USD"
-        }
-    }
-}
-
-#Set Wallet Address
-@app.post("/wallets-set-address", tags=["wallet"])
-async def set_wallet(newWalletAddress: dict) -> str:
-    wallet_address.append(newWalletAddress["walletAddress"])
-    return ""
-
-#Get Corresponding Wallet Details
-@app.get("/wallets", tags=["wallet module"])
-async def get_wallet():
-    return wallets[wallet_address[-1]]
-
